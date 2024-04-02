@@ -5,6 +5,8 @@ import com.ruffy.MusicApp.model.Music;
 import com.ruffy.MusicApp.model.MusicResource;
 import com.ruffy.MusicApp.service.MusicService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
@@ -13,15 +15,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/music")
 public class MusicController {
 
-    private final MusicService musicService;
+    @Autowired
+    private MusicService musicService;
+//    private final MusicService musicService;
 
-    public MusicController(MusicService musicService) {
-        this.musicService = musicService;
-    }
+//    public MusicController(MusicService musicService) {
+//        this.musicService = musicService;
+//    }
 
     @GetMapping("/allMusic")
     public ResponseEntity<List<Music>> getAllMusic(){
@@ -46,20 +51,28 @@ public class MusicController {
 
     @DeleteMapping("/single/{id}")
     public ResponseEntity<Music>deleteMusisc(@PathVariable int id){
-        return musicService.deleteMusisc(id);
+        return musicService.deleteMusic(id);
     }
 
-    @GetMapping("/resources/{id}")
-    public ResponseEntity<MusicResource> getMusicResource(@PathVariable int id){
-        Music musicToSend = musicService.getMusicById(id).getBody();
-        MusicResource musicResource = new MusicResource();
-        musicResource.setMusic(musicToSend);
-        Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MusicController.class).getMusicById(id)).withSelfRel();
-        Link delete = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MusicController.class).deleteMusisc(id)).withRel("delete");
-        Link update = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MusicController.class).updateMusic(id, musicToSend)).withRel("update");
-        musicResource.add(selfLink, delete, update);
-        return new ResponseEntity<>(musicResource, HttpStatus.OK);
+    // getArtisteByName
+    @GetMapping("/single/{artisteName}")
+    public ResponseEntity<Music>getMusicByArtisteName(@PathVariable String artisteName){
+        return musicService.getMusicByArtisteName(artisteName);
     }
-
-
+    @GetMapping("/single/{title}")
+    public ResponseEntity<Music>getMusicByTitle(@PathVariable String title){
+        return musicService.getMusicByArtisteName(title);
+    }
+    @GetMapping("/single/{genre}")
+    public ResponseEntity<Music>getMusicByGenre(@PathVariable String genre){
+        return musicService.getMusicByArtisteName(genre);
+    }
+    @GetMapping("/single/{year}")
+    public ResponseEntity<Music>getMusicByYearOfProduction(@PathVariable int year){
+        return musicService.getMusicByYearOfProduction(year);
+    }
+    @GetMapping("/single/{albumName}")
+    public ResponseEntity<Music>getMusicByAlbumName(@PathVariable String albumName){
+        return musicService.getMusicByAlbumName(albumName);
+    }
 }

@@ -10,13 +10,14 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 
+@AllArgsConstructor
 @RequiredArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 //@Getter
 //@Setter
 //@Data
 @Entity
-@Table(name = "music", uniqueConstraints = @UniqueConstraint(columnNames = {"title","yearOfProduction"}))
+@Table(name = "music", uniqueConstraints = @UniqueConstraint(columnNames = {"title","year_of_production"}))
 public class Music {
 
     @Id
@@ -26,7 +27,7 @@ public class Music {
     private  String title;
     @NotBlank
     @Length(min = 3, max = 25)
-    private  String artistName;
+    private  String artisteName;
 
     @NotBlank
     @Length(min = 3, max = 25)
@@ -48,8 +49,8 @@ public class Music {
         this.title = title;
     }
 
-    public void setArtistName(String artistName) {
-        this.artistName = artistName;
+    public void setArtistName(String artisteName) {
+        this.artisteName = artisteName;
     }
 
     public void setAlbumName(String albumName) {
@@ -76,8 +77,8 @@ public class Music {
         return title;
     }
 
-    public String getArtistName() {
-        return artistName;
+    public String getArtisteName() {
+        return artisteName;
     }
 
     public String getAlbumName() {

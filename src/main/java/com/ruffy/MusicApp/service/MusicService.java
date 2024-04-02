@@ -31,7 +31,6 @@ public class MusicService {
         return new ResponseEntity<>(musicRepository.findById(id).get(), HttpStatus.OK);
     }
 
-
     public ResponseEntity<Music>addNewMusic(Music music){
         return new ResponseEntity<>(musicRepository.save(music), HttpStatus.CREATED);
     }
@@ -40,13 +39,33 @@ public class MusicService {
         Music dbMusic = musicRepository.findById(id).get();
         dbMusic.setMusicDuration(music.getMusicDuration());
         dbMusic.setAlbumName(music.getAlbumName());
-        dbMusic.setArtistName(music.getArtistName());
+        dbMusic.setArtistName(music.getArtisteName());
         dbMusic.setGenre(music.getGenre());
-        dbMusic.setTitle(music.getArtistName());
+        dbMusic.setTitle(music.getTitle());
         dbMusic.setYearOfProduction(music.getYearOfProduction());
         return new ResponseEntity<>(musicRepository.save(music), HttpStatus.CREATED);
     }
-    public ResponseEntity<Music>deleteMusisc(int id){
+    public ResponseEntity<Music>deleteMusic(int id){
         return new ResponseEntity<Music>(musicRepository.findById(id).get(), HttpStatus.OK);
+    }
+
+    public ResponseEntity<Music>getMusicByArtisteName(String artisteName){
+        return new ResponseEntity<>(musicRepository.findByArtisteName(artisteName), HttpStatus.OK);
+    }
+
+    public ResponseEntity<Music>getMusicByTitle(String title){
+        return new ResponseEntity<>(musicRepository.findByTitle(title), HttpStatus.OK);
+    }
+
+    public ResponseEntity<Music>getMusicByGenre(String genre){
+        return new ResponseEntity<>(musicRepository.findByGenre(genre), HttpStatus.OK);
+    }
+
+    public ResponseEntity<Music>getMusicByYearOfProduction(int year){
+        return new ResponseEntity<>(musicRepository.findByYearOfProduction(year), HttpStatus.OK);
+    }
+
+    public ResponseEntity<Music>getMusicByAlbumName(String albumName){
+        return new ResponseEntity<>(musicRepository.findByAlbumName(albumName), HttpStatus.OK);
     }
 }
