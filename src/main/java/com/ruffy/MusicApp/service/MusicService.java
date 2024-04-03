@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 //@RequiredArgsConstructor
 //@AllArgsConstructor
@@ -18,10 +20,6 @@ import java.util.List;
 public class MusicService {
     @Autowired
     private MusicRepository musicRepository;
-
-//    public MusicService(MusicRepository musicRepository) {
-//        this.musicRepository = musicRepository;
-//    }
 
     public ResponseEntity<List<Music>>getAllMusic(){
         return new  ResponseEntity<>(musicRepository.findAll(), HttpStatus.OK);
@@ -45,8 +43,41 @@ public class MusicService {
         dbMusic.setYearOfProduction(music.getYearOfProduction());
         return new ResponseEntity<>(musicRepository.save(music), HttpStatus.CREATED);
     }
+
+    public ResponseEntity<Music> updateOneMusic(int id, Map<String, Object> updateMusic){
+        Optional<Music> dbMusic = musicRepository.findById(id);
+        if(dbMusic.isPresent()){
+            Music musicToUpdate = dbMusic.get();
+            if(updateMusic.containsKey("musicDuration")){
+                musicToUpdate.setMusicDuration((Double) updateMusic.get("musicDuration"));
+            }
+            if(updateMusic.containsKey("genre")){
+                musicToUpdate.setGenre((String) updateMusic.get("genre"));
+            }
+            if(updateMusic.containsKey("title")){
+                musicToUpdate.setTitle((String) updateMusic.get("title"));
+            }
+            if(updateMusic.containsKey("artisteName")){
+                musicToUpdate.setArtistName((String) updateMusic.get("artisteName"));
+            }
+            if(updateMusic.containsKey("yearOfProduction")){
+                musicToUpdate.setYearOfProduction(Integer.parseInt((String) updateMusic.get("yearOfProduction")));
+            }
+            if(updateMusic.containsKey("albumName")){
+                musicToUpdate.setAlbumName((String) updateMusic.get("albumName"));
+            }
+            Music updatedMusic = musicRepository.save(musicToUpdate);
+
+            // Return response entity with the updated Music entity
+            return new ResponseEntity<>(updatedMusic, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+
+    }
     public ResponseEntity<Music>deleteMusic(int id){
-        return new ResponseEntity<Music>(musicRepository.findById(id).get(), HttpStatus.OK);
+        return new ResponseEntity<>(musicRepository.findById(id).get(), HttpStatus.OK);
     }
 
     public ResponseEntity<Music>getMusicByArtisteName(String artisteName){

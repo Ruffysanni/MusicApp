@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MusicRepository extends JpaRepository<Music, Integer> {
-    Music findByArtisteName(String artisteName);
+     Music findByArtisteName(String artisteName);
     Music findByTitle(String title);
     Music findByGenre(String genre);
     Music findByYearOfProduction(int year);

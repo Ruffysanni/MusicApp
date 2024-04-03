@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 
 @AllArgsConstructor
@@ -33,17 +34,17 @@ public class Music {
     @Length(min = 3, max = 25)
     private  String albumName;
 
-    @Size(min = 1, max = 6)
-    private  double musicDuration;
+
+    @Range(min = 1, max = 6)
+    private double musicDuration;
 
     @NotBlank
     @Length(min = 3)
     private  String genre;
 
-    @NotBlank
     @Min(1900)
     @Max(2024)
-    private  int yearOfProduction;
+    private int yearOfProduction;
 
     public void setTitle(String title) {
         this.title = title;

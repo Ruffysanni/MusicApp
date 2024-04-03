@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -39,39 +40,44 @@ public class MusicController {
     }
 
     @PostMapping("/single")
-    public ResponseEntity<Music>addNewMusic(@RequestBody @Valid Music music){
+    public ResponseEntity<Music> addNewMusic(@RequestBody @Valid Music music){
         return musicService.addNewMusic(music);
     }
 
     @PutMapping("/single/{id}")
     public ResponseEntity<Music> updateMusic(@PathVariable int id, @RequestBody Music music){
-
         return musicService.updateMusic(id, music);
     }
 
+    @PatchMapping("/single/{id}")
+    public ResponseEntity<Music> updateOneMusic(@PathVariable int id, @RequestBody Map<String, Object> music){
+//        ResponseEntity<Music> responseEntity = musicService.updateOneMusic(id, music);
+        return musicService.updateOneMusic(id, music);
+    }
+
     @DeleteMapping("/single/{id}")
-    public ResponseEntity<Music>deleteMusisc(@PathVariable int id){
+    public ResponseEntity<Music>deleteMusic(@PathVariable int id){
         return musicService.deleteMusic(id);
     }
 
     // getArtisteByName
-    @GetMapping("/single/{artisteName}")
+    @GetMapping("/single/artisteName/{artisteName}")
     public ResponseEntity<Music>getMusicByArtisteName(@PathVariable String artisteName){
         return musicService.getMusicByArtisteName(artisteName);
     }
-    @GetMapping("/single/{title}")
+    @GetMapping("/single/title/{title}")
     public ResponseEntity<Music>getMusicByTitle(@PathVariable String title){
-        return musicService.getMusicByArtisteName(title);
+        return musicService.getMusicByTitle(title);
     }
-    @GetMapping("/single/{genre}")
+    @GetMapping("/single/genre/{genre}")
     public ResponseEntity<Music>getMusicByGenre(@PathVariable String genre){
-        return musicService.getMusicByArtisteName(genre);
+        return musicService.getMusicByGenre(genre);
     }
-    @GetMapping("/single/{year}")
+    @GetMapping("/single/prodYear/{year}")
     public ResponseEntity<Music>getMusicByYearOfProduction(@PathVariable int year){
         return musicService.getMusicByYearOfProduction(year);
     }
-    @GetMapping("/single/{albumName}")
+    @GetMapping("/single/albumName/{albumName}")
     public ResponseEntity<Music>getMusicByAlbumName(@PathVariable String albumName){
         return musicService.getMusicByAlbumName(albumName);
     }

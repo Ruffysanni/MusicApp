@@ -16,8 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/resource")
 public class ResourcesController {
-    @Autowired
+
+
+    //    @Autowired
     private MusicService musicService;
+
+    public ResourcesController(MusicService musicService) {
+        this.musicService = musicService;
+    }
 
     @GetMapping("/resources/{id}")
     public ResponseEntity<MusicResource> getMusicResource(@PathVariable int id){
@@ -25,7 +31,7 @@ public class ResourcesController {
         MusicResource musicResource = new MusicResource();
         musicResource.setMusic(musicToSend);
         Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MusicController.class).getMusicById(id)).withSelfRel();
-        Link delete = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MusicController.class).deleteMusisc(id)).withRel("delete");
+        Link delete = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MusicController.class).deleteMusic(id)).withRel("delete");
         Link update = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MusicController.class).updateMusic(id, musicToSend)).withRel("update");
         Link allMusic = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MusicController.class).getAllMusic()).withRel("allMusic");
         musicResource.add(selfLink, delete, update, allMusic);
