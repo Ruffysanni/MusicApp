@@ -51,7 +51,6 @@ public class MusicController {
 
     @PatchMapping("/single/{id}")
     public ResponseEntity<Music> updateOneMusic(@PathVariable int id, @RequestBody Map<String, Object> music){
-//        ResponseEntity<Music> responseEntity = musicService.updateOneMusic(id, music);
         return musicService.updateOneMusic(id, music);
     }
 

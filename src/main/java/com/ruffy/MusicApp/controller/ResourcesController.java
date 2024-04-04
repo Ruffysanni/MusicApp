@@ -34,6 +34,12 @@ public class ResourcesController {
         Link delete = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MusicController.class).deleteMusic(id)).withRel("delete");
         Link update = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MusicController.class).updateMusic(id, musicToSend)).withRel("update");
         Link allMusic = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MusicController.class).getAllMusic()).withRel("allMusic");
+//        Link getByTitle = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MusicController.class).getAllMusic()).withRel("title");
+//        Link getByArtisteName = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MusicController.class).getAllMusic()).withRel("/single/artisteName/{artisteName}");
+//        Link getByGenre = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MusicController.class).getAllMusic()).withRel("/single/genre/{genre}");
+//        Link getByProdYear = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MusicController.class).getAllMusic()).withRel("/single/prodYear/{year}");
+//        Link getByAlbumName = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MusicController.class).getAllMusic()).withRel("/single/albumName/{albumName}");
+//        musicResource.add(selfLink, delete, update, allMusic, getByTitle, getByArtisteName, getByGenre, getByProdYear, getByAlbumName);
         musicResource.add(selfLink, delete, update, allMusic);
         return new ResponseEntity<>(musicResource, HttpStatus.OK);
     }
