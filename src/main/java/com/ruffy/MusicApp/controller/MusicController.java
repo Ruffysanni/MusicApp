@@ -49,10 +49,10 @@ public class MusicController {
         return musicService.updateMusic(id, music);
     }
 
-    @PatchMapping("/single/{id}")
-    public ResponseEntity<Music> updateOneMusic(@PathVariable int id, @RequestBody Map<String, Object> music){
-        return musicService.updateOneMusic(id, music);
-    }
+//    @PatchMapping("/single/{id}")
+//    public ResponseEntity<Music> updateOneMusic(@PathVariable int id, @RequestBody Map<String, Object> music){
+//        return musicService.updateOneMusic(id, music);
+//    }
 
     @DeleteMapping("/single/{id}")
     public ResponseEntity<Music>deleteMusic(@PathVariable int id){
