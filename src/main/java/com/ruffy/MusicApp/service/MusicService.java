@@ -94,7 +94,7 @@ public class MusicService {
 //    }
 
     // Delete one music
-    @Cacheable(value = "getById", key = "#id")
+    @CacheEvict(value = "getById", key = "#id")
     public ResponseEntity<Music>deleteMusic(int id){
         return new ResponseEntity<>(musicRepository.findById(id).get(), HttpStatus.OK);
     }
